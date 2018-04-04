@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Inserir viatges</title>
+    </h:head>
+    <h:body>
+        <h:form enctype="multipart/form-data">
+            <p:panel header="Inserció de viatges" style="margin-bottom:10px; background-color: lightblue" >        
+                <h:panelGrid columns="2" cellpadding="5">
+                   
+                    <p:outputLabel for="tipus" value="TIPUS: " style="font-weight: bold"/>
+                    <p:inputText id="tipus" size="80" value="#{controlador.viatgeActual.tipus}" />
+
+                    <p:outputLabel for="descripcio" value="DESCRIPCIÓ: " style="font-weight: bold"/>
+                    <p:inputText id="descripcio" size="80" value="#{controlador.viatgeActual.descripcio}" />
+
+                    <p:outputLabel for="datainici" value="DATA INICI: " style="font-weight: bold" />
+                    <p:calendar id="datainici" value="#{controlador.viatgeActual.dataInici}" 
+                                pattern="dd/MM/yyyy" placeholder="DD/MM/YYYY" locale="ca" 
+                                navigator="true" />
+
+                    <p:outputLabel for="datafi" value="DATA FI: " style="font-weight: bold" />
+                    <p:calendar id="datafi" value="#{controlador.viatgeActual.dataFi}" 
+                                pattern="dd/MM/yyyy" placeholder="DD/MM/YYYY" locale="ca" 
+                                navigator="true" />
+
+                    <p:outputLabel for="preu" value="PREU " style="font-weight: bold"/>
+                    <p:inputNumber id="preu" value="#{controlador.viatgeActual.preu}" decimalPlaces="2">  
+                        <p:ajax update="preu" /> 
+                    </p:inputNumber>
+
+                    <p:outputLabel for="placesofertades" value="PLACES OFERTADES " style="font-weight: bold"/>
+                    <p:inputText id="placesofertades" size="80" value="#{controlador.viatgeActual.placesOfertades}" />
+                    
+                    <p:outputLabel value="SELECCIONA UNA IMATGE: " style="font-weight: bold"/>
+                    <p:fileUpload value="#{controlador.viatgeActual.arxiuFoto}"  mode="simple"
+                                  skinSimple="true" label="Selecciona imatge"></p:fileUpload>
+
+                </h:panelGrid>
+
+                <h:panelGrid id="panel" columns="2" border="0" cellpadding="10" cellspacing="1">
+                    <p:commandButton value="Inserir" action="#{controlador.crearViatge(
+                                                               controlador.viatgeActual.tipus, 
+                                                               controlador.viatgeActual.descripcio, 
+                                                               controlador.viatgeActual.dataInici, 
+                                                               controlador.viatgeActual.dataFi, 
+                                                               controlador.viatgeActual.preu, 
+                                                               controlador.viatgeActual.placesOfertades)}" 
+                                     ajax="false"   icon="ui-icon-check" />
+                    <p:commandButton value="Cancel·lar" action="index" icon="ui-icon-cancel" />
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
+

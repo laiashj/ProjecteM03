@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Administrador</title>
+    </h:head>
+    <h:body>
+        <h:form >
+            <p:menubar>
+                <p:submenu icon="ui-icon-locked" label="Admin" >
+                    <p:menuitem icon="ui-icon-plus" value="Alta viatges" action="#{controlador.prepararInsercioViatge()}" />
+                    <p:menuitem icon="ui-icon-search" value="consulta reserves" action="llistarReservesAdmin" />
+                </p:submenu>
+            </p:menubar>
+
+
+            <p:tabView value="#{controlador.llistarTipusViatge()}" var="tipus">
+                <p:tab title="#{tipus}">
+
+                    <p:dataScroller value="#{controlador.llistarViatges(tipus)}" var="viatge" chunkSize="10">
+
+                        <h:panelGrid columns="2" cellpadding="5">
+
+                            <p:graphicImage value="#{controlador.conversioFoto()}"   height="100" width="180">                       
+                                <f:param name="codi" value="#{viatge.codi}"/>
+                            </p:graphicImage> 
+
+                            <p:outputPanel>
+                                <h:panelGrid columns="2" style="width:100%" >
+                                    <h:outputText value="tipus" style="font-weight: bold"/>
+                                    <h:outputText value="#{viatge.tipus}" />
+
+                                    <h:outputText value="data inici" style="font-weight: bold"/>
+                                    <h:outputText value="#{viatge.datainici}" />
+
+                                    <h:outputText value="data fi" style="font-weight: bold"/>
+                                    <h:outputText value="#{viatge.datafi}" />
+
+                                    <h:outputText value="preu" style="font-weight: bold"/>
+                                    <h:outputText value="#{viatge.preu}" />
+
+                                    <h:outputText value="places disponibles" style="font-weight: bold"/>
+                                    <h:outputText value="#{viatge.placesofertades}" />
+                                    
+                                    <p:commandButton value="Reservar" action="#{controlador.prepararInsercioReserves(viatge.codi)}"
+                                     ajax="false"   icon="ui-icon-check" />
+                                  
+                                </h:panelGrid>
+                            </p:outputPanel>
+                        </h:panelGrid>  
+                        <p:separator />
+                    </p:dataScroller>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </h:body>
+
+</html>
+
